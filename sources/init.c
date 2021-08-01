@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:00:18 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 14:15:19 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/01 16:43:33 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	checkfd(int i)
 {
 	if (i < 0)
 	{
-		perror("can't open file\n");
+		perror("Can't open file\n");
 		exit (1);
 	}
 	if (read(i, 0, 0) < 0)
 	{
-		perror("can't open file\n");
+		perror("Can't read file\n");
 		exit (1);
 	}
 }
@@ -35,7 +35,7 @@ static void	searchpath(t_pipex *pipex, char **envp)
 		++i;
 	if (!envp[i])
 	{
-		perror("can't find path :(\n");
+		perror("Can't find path:(\n");
 		exit (1);
 	}
 	pipex->paths = ft_split(envp[i] + 5, ':');
@@ -49,7 +49,7 @@ void	init(t_pipex *pipex, char **argv, char **envp)
 	checkfd(pipex->fd[1]);
 	if (pipe(pipex->pipe_fd) == -1)
 	{
-		perror("can't make pipe:(\n");
+		perror("Can't make pipe:(\n");
 		exit(1);
 	}
 	pipex->cmd1 = ft_strdup(argv[2]);

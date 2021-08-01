@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_freedom.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/01 11:58:16 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 17:09:18 by aeldridg         ###   ########.fr       */
+/*   Created: 2021/08/01 16:46:47 by aeldridg          #+#    #+#             */
+/*   Updated: 2021/08/01 16:54:28 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-char	*ft_strdup(const char *s1)
+static void	ft_free(char **split, int words)
 {
-	size_t	i;
-	size_t	i1;
-	char	*ptr;	
+	int	i;
 
-	i = ft_strlen(s1);
-	i1 = 0;
-	ptr = (char *)malloc(sizeof(char) * (i + 1));
-	if (!ptr)
-		return (NULL);
-	while (i--)
-		ptr[i1++] = *s1++;
-	ptr[i1] = '\0';
-	return (ptr);
+	i = 0;
+	while (i < words)
+	{
+		free(split[i]);
+		++i;
+	}
+	free(split);
+}
+
+void	ft_freedom(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	free(pipex->cmd1);
+	free(pipex->cmd2);
+	while (pipex->cmd1s[i])
+		++i;
+	ft_free(pipex->cmd1s, i);
+	i = 0;
+	while (pipex->cmd2s[i])
+		++i;
+	ft_free(pipex->cmd2s, i);
+	i = 0;
+	while (pipex->paths[i])
+		++i;
+	ft_free(pipex->paths, i);
 }

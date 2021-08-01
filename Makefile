@@ -3,6 +3,7 @@ NAME		=	pipex
 SRCS		= 	pipex.c \
 				sources/init.c \
 				sources/processes.c \
+				sources/ft_freedom.c \
 				utils/ft_putstr_fd.c \
 				utils/ft_split.c \
 				utils/ft_strdup.c \
@@ -17,11 +18,9 @@ CC			= 	gcc
 
 CFLAGS		= 	-Wall -Wextra -Werror
 
-INCLUDES	= 	includes/so_long.h
+INCLUDES	= 	includes/pipex.h
 
 RM			= 	rm -rf
-
-NORMIN		= 	norminette
 
 all: 			$(NAME)
 

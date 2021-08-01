@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:06:25 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 14:20:12 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/01 16:55:01 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 	{
-		ft_putstr_fd("Usage: file1 cmd1 cmd2 file2\n", 1);
+		ft_putstr_fd("Usage: ./pipex file1 cmd1 cmd2 file2\n", 1);
 		exit (0);
 	}
 	init(&pipex, argv, envp);
@@ -46,5 +46,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!id)
 		forkproc(&pipex, envp);
 	wait(NULL);
+	ft_freedom(&pipex);
 	return (0);
 }

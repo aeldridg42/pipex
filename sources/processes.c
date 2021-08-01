@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:03:00 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 14:15:34 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/01 16:55:18 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	firstproc(t_pipex *pipex, char **envp)
 	findpath(pipex, envp, 1);
 	close(pipex->pipe_fd[1]);
 	close(pipex->fd[0]);
+	ft_freedom(pipex);
 	ft_putstr_fd("Wrong cmd1\n", 2);
 	exit (1);
 }
@@ -54,6 +55,7 @@ void	secondproc(t_pipex *pipex, char **envp)
 	findpath(pipex, envp, 0);
 	close(pipex->pipe_fd[0]);
 	close(pipex->fd[1]);
+	ft_freedom(pipex);
 	ft_putstr_fd("Wrong cmd2\n", 2);
 	exit (1);
 }
