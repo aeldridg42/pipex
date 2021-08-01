@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:00:18 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 16:43:33 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/01 17:44:09 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ void	init(t_pipex *pipex, char **argv, char **envp)
 	if (pipe(pipex->pipe_fd) == -1)
 	{
 		perror("Can't make pipe:(\n");
+		exit(1);
+	}
+	if (argv[2][0] == '\0' || argv[3][0] == '\0')
+	{
+		ft_putstr_fd("Wrong cmd\n", 2);
 		exit(1);
 	}
 	pipex->cmd1 = ft_strdup(argv[2]);
