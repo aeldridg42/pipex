@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:03:00 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/01 17:43:32 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/02 12:47:07 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static void	findpath(t_pipex *pipex, char **envp, int i2)
 			pipex->tmp = ft_strjoin(pipex->paths[i++], "/");
 			pipex->tmp = strjoin_free(pipex->tmp, pipex->cmd1s[0]);
 			free(pipex->tmp);
-			if (!access(pipex->tmp, 0) && !access(pipex->tmp, 1))
-				execve(pipex->tmp, pipex->cmd2s, envp);
+			if (access(pipex->tmp, X_OK) == 0)
+				execve(pipex->tmp, pipex->cmd1s, envp);
 		}
 		else
 		{
 			pipex->tmp = ft_strjoin(pipex->paths[i++], "/");
 			pipex->tmp = strjoin_free(pipex->tmp, pipex->cmd2s[0]);
 			free(pipex->tmp);
-			if (!access(pipex->tmp, 0) && !access(pipex->tmp, 1))
+			if (access(pipex->tmp, X_OK) == 0)
 				execve(pipex->tmp, pipex->cmd2s, envp);
 		}
 	}
