@@ -1,5 +1,7 @@
 NAME		=	pipex
 
+BNAME		=	pipex_bonus
+
 SRCS		= 	pipex.c \
 				sources/init.c \
 				sources/processes.c \
@@ -12,7 +14,22 @@ SRCS		= 	pipex.c \
 				utils/ft_strnstr.c \
 				utils/strjoin_free.c \
 
+BSRCS		=	bonus/pipex_bonus.c \
+				bonus/init_bonus.c \
+				bonus/processes_bonus.c \
+				bonus/ft_freedom_bonus.c \
+				utils/ft_putstr_fd.c \
+				utils/ft_split.c \
+				utils/ft_strdup.c \
+				utils/ft_strjoin.c \
+				utils/ft_strlen.c \
+				utils/ft_strnstr.c \
+				utils/strjoin_free.c \
+
+
 OBJS		= 	${SRCS:.c=.o}
+
+BOBJS		= 	${BSRCS:.c=.o}
 
 CC			= 	gcc
 
@@ -30,12 +47,15 @@ $(NAME): 		$(OBJS)
 %.o : %.c 		${INCLUDES}
 				${CC} ${CFLAGS} -c $< -I ${INCLUDES} -o ${<:.c=.o}
 
+bonus:			$(BOBJS)
+				@${CC} ${BOBJS} ${CFLAGS} -o ${BNAME}
+
 clean:
-				${RM} $(OBJS)
+				${RM} $(OBJS) $(BOBJS)
 
 fclean:			clean
-				${RM} ${NAME}
+				${RM} ${NAME} ${BNAME}
 
 re:				fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re bonus

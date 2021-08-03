@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/01 14:00:18 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 10:47:46 by aeldridg         ###   ########.fr       */
+/*   Created: 2021/08/03 10:36:25 by aeldridg          #+#    #+#             */
+/*   Updated: 2021/08/03 13:39:27 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 static void	checkfd(int i)
 {
@@ -26,7 +26,7 @@ static void	checkfd(int i)
 	}
 }
 
-static void	searchpath(t_pipex *pipex, char **envp)
+static void	pathinit(t_pipex *pipex, char **envp)
 {
 	int	i;
 
@@ -35,31 +35,41 @@ static void	searchpath(t_pipex *pipex, char **envp)
 		++i;
 	if (!envp[i])
 	{
-		perror("Can't find path:(\n");
+		ft_putstr_fd("Can't find path:(\n", 2);
 		exit (1);
 	}
 	pipex->paths = ft_split(envp[i] + 5, ':');
 }
 
-void	init(t_pipex *pipex, char **argv, char **envp)
+static void	puterror(void)
 {
+	ft_putstr_fd("Error: wrong cmd\n", 2);
+	exit(1);
+}
+
+int	init_b(t_pipex *pipex, char **envp, char **argv, int argc)
+{
+	int	i;
+
+	i = 0;
+	pipex->argc = argc;
 	pipex->fd[0] = open(argv[1], O_RDONLY);
 	checkfd(pipex->fd[0]);
-	pipex->fd[1] = open(argv[4], O_TRUNC | O_RDWR | O_CREAT, 0666);
+	pipex->fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0666);
 	checkfd(pipex->fd[1]);
-	if (pipe(pipex->pipe_fd) == -1)
+	pipex->tmp = NULL;
+	while (argv[i])
 	{
-		perror("Can't make pipe:(\n");
-		exit(1);
+		if (argv[i][0])
+			++i;
+		else
+			puterror();
 	}
-	if (argv[2][0] == '\0' || argv[3][0] == '\0')
-	{
-		ft_putstr_fd("Wrong cmd\n", 2);
-		exit(1);
-	}
-	pipex->cmd1 = ft_strdup(argv[2]);
-	pipex->cmd2 = ft_strdup(argv[3]);
-	pipex->cmd1s = ft_split(argv[2], ' ');
-	pipex->cmd2s = ft_split(argv[3], ' ');
-	searchpath(pipex, envp);
+	i = 0;
+	pipex->start = 2;
+	pipex->pipe_fd = (int **)malloc(sizeof(int *) * (argc - 4));
+	while (i < argc - 4)
+		pipex->pipe_fd[i++] = (int *)malloc(sizeof(int) * 2);
+	pathinit(pipex, envp);
+	return (0);
 }
