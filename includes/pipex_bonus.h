@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 21:23:52 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 13:40:01 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:18:16 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void	process(t_pipex *pipex, char **argv, char **envp);
 void	process2(t_pipex *pipex, char **argv, char **envp);
 void	process3(t_pipex *pipex, char **argv, char **envp);
 void	ft_freedom_bonus(t_pipex *pipex);
+void	ft_exit_bonus(int i);
 
 #endif

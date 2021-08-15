@@ -6,22 +6,26 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:36:25 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 13:39:27 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:22:51 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-static void	checkfd(int i)
+static void	checkfd(int i, char *str)
 {
 	if (i < 0)
 	{
-		perror("Can't open file\n");
+		ft_putstr_fd("Can't open file \"", 2);
+		ft_putstr_fd(str, 2);
+		write(2, "\"\n", 2);
 		exit (1);
 	}
 	if (read(i, 0, 0) < 0)
 	{
-		perror("Can't read file\n");
+		ft_putstr_fd("Can't read file \"", 2);
+		ft_putstr_fd(str, 2);
+		write(2, "\"\n", 2);
 		exit (1);
 	}
 }
@@ -41,12 +45,6 @@ static void	pathinit(t_pipex *pipex, char **envp)
 	pipex->paths = ft_split(envp[i] + 5, ':');
 }
 
-static void	puterror(void)
-{
-	ft_putstr_fd("Error: wrong cmd\n", 2);
-	exit(1);
-}
-
 int	init_b(t_pipex *pipex, char **envp, char **argv, int argc)
 {
 	int	i;
@@ -54,16 +52,16 @@ int	init_b(t_pipex *pipex, char **envp, char **argv, int argc)
 	i = 0;
 	pipex->argc = argc;
 	pipex->fd[0] = open(argv[1], O_RDONLY);
-	checkfd(pipex->fd[0]);
+	checkfd(pipex->fd[0], argv[1]);
 	pipex->fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0666);
-	checkfd(pipex->fd[1]);
+	checkfd(pipex->fd[1], argv[argc - 1]);
 	pipex->tmp = NULL;
 	while (argv[i])
 	{
 		if (argv[i][0])
 			++i;
 		else
-			puterror();
+			ft_exit_bonus(1);
 	}
 	i = 0;
 	pipex->start = 2;

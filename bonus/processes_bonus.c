@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:46:43 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 13:39:31 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:55:58 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 static void	findpath(char **envp, t_pipex *pipex)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (pipex->paths[i])
 	{
 		if (pipex->tmp)
 			free(pipex->tmp);
-		pipex->tmp = ft_strjoin(pipex->paths[i++], "/");
-		pipex->tmp = strjoin_free(pipex->tmp, pipex->cmd[0]);
+		tmp = ft_strjoin(pipex->paths[i++], "/");
+		pipex->tmp = ft_strjoin(tmp, pipex->cmd[0]);
+		free(tmp);
 		if (access(pipex->tmp, X_OK) == 0)
 			execve(pipex->tmp, pipex->cmd, envp);
 	}
-	ft_putstr_fd("Error: wrong cmd\n", 2);
+	ft_putstr_fd("Error: wrong cmd - \"", 2);
+	ft_putstr_fd(pipex->cmd[0], 2);
+	write(2, "\"\n", 2);
 	ft_freedom_bonus(pipex);
 	exit (1);
 }

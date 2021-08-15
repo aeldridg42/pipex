@@ -6,25 +6,25 @@ SRCS		= 	pipex.c \
 				sources/init.c \
 				sources/processes.c \
 				sources/ft_freedom.c \
+				sources/ft_exit.c \
 				utils/ft_putstr_fd.c \
 				utils/ft_split.c \
 				utils/ft_strdup.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
 				utils/ft_strnstr.c \
-				utils/strjoin_free.c \
 
 BSRCS		=	bonus/pipex_bonus.c \
 				bonus/init_bonus.c \
 				bonus/processes_bonus.c \
 				bonus/ft_freedom_bonus.c \
+				bonus/ft_exit_bonus.c \
 				utils/ft_putstr_fd.c \
 				utils/ft_split.c \
 				utils/ft_strdup.c \
 				utils/ft_strjoin.c \
 				utils/ft_strlen.c \
 				utils/ft_strnstr.c \
-				utils/strjoin_free.c \
 
 
 OBJS		= 	${SRCS:.c=.o}

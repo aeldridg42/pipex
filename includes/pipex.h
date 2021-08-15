@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 14:06:37 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 13:40:06 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:16:20 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	init(t_pipex *pipex, char **argv, char **envp);
 void	firstproc(t_pipex *pipex, char **envp);
 void	secondproc(t_pipex *pipex, char **envp);
 void	ft_freedom(t_pipex *pipex);
+void	ft_exit(int i);
 
 #endif

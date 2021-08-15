@@ -6,7 +6,7 @@
 /*   By: aeldridg <aeldridg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:22:54 by aeldridg          #+#    #+#             */
-/*   Updated: 2021/08/03 13:39:19 by aeldridg         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:19:58 by aeldridg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	mainprocess(t_pipex *pipex, char **argv, char **envp, int argc)
 	pipex->start++;
 	while (pipex->i < argc - 4)
 	{
-		pipe(pipex->pipe_fd[pipex->i]);
+		if (pipe(pipex->pipe_fd[pipex->i]) < 0)
+			ft_exit_bonus(3);
 		pid = fork();
 		if (!pid)
 			process2(pipex, argv, envp);
@@ -38,12 +39,10 @@ int	main(int argc, char **argv, char **envp)
 	int		pid;
 
 	if (argc < 5)
-	{
-		ft_putstr_fd("Usage: ./pipex_bonus file1 cmd1 ... cmdN file2\n", 2);
-		exit (0);
-	}
+		ft_exit_bonus(2);
 	pipex.i = init_b(&pipex, envp, argv, argc);
-	pipe(pipex.pipe_fd[pipex.i]);
+	if (pipe(pipex.pipe_fd[pipex.i]) < 0)
+		ft_exit_bonus(3);
 	pid = fork();
 	if (!pid)
 		process(&pipex, argv, envp);
